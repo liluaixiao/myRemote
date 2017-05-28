@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>vue</title>
+</head>
+<body>
+<div id="app">
+	<div>hello world</div>
+	<div>is {{msg}}</div>
+	<div class="header">
+		<ul>
+			<li v-for="item in jsonData" 
+				@click.stop.prevent="toggle(item)">
+				{{item.title}}
+				<ul >
+					<li v-for="sub in item.b.sub_title" 
+						@click.stop.prevent="toggle(item.b)"
+						v-show="item.show">{{sub}}
+						<ul>
+							<li v-for="last in item.b.c.last_title"
+								v-show="item.b.show">{{last}}</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+
+	<script src="vue.min.js"></script>
+	<script src="index.js"></script>
+	<script>
+	var app = new Vue({
+		el: '#app',
+		data: {
+			msg: 'is demo',
+			jsonData: json,
+		},
+		methods: {
+			toggle: function(item) {
+				console.log(item)
+			  Vue.set(item, 'show', this.show = !this.show);
+			}
+		}
+	})
+	</script>
+</body>
+</html>
