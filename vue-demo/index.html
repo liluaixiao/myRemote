@@ -12,14 +12,14 @@
 		<ul>
 			<li v-for="item in jsonData" 
 				@click.stop.prevent="toggle(item)">
-				{{item.title}}
+				{{item.text}}
 				<ul >
-					<li v-for="sub in item.b.sub_title" 
-						@click.stop.prevent="toggle(item.b)"
-						v-show="item.show">{{sub}}
+					<li v-for="sub in item.children" 
+						@click.stop.prevent="toggle(sub)"
+						v-show="item.show">{{sub.text}}
 						<ul>
-							<li v-for="last in item.b.c.last_title"
-								v-show="item.b.show">{{last}}</li>
+							<li v-for="last in sub.children"
+								v-show="sub.show">{{last.text}}</li>
 						</ul>
 					</li>
 				</ul>
@@ -36,10 +36,15 @@
 		data: {
 			msg: 'is demo',
 			jsonData: json,
+			show: false
+		},
+		created() {
+			// console.log(123)
+			// Vue.set(this.jsonData, 'show', false);
 		},
 		methods: {
 			toggle: function(item) {
-				console.log(item)
+				console.log(item.show)
 			  Vue.set(item, 'show', this.show = !this.show);
 			}
 		}
